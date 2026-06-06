@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DS Master - منصة تعليمية تفاعلية لمادة هياكل البيانات Data Structures - جامعة برج العرب التكنولوجيا">
+    <meta name="keywords" content="Data Structures, هياكل البيانات, DS, Stack, Queue, Linked List, Tree, Graph, Big O, Time Complexity">
+    <meta name="author" content="Abdullah - Borg El Arab Technology University">
+    <title>DS Master | تعلّم هياكل البيانات</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+
+    <!-- Google Analytics (Free Visitor Tracking) -->
+    <!-- لمتابعة الزوار مجاناً، قم بإنشاء حساب في Google Analytics وضع كود التتبع هنا بدلاً من G-XXXXXXXXXX -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Particle Background -->
+    <canvas id="particles-canvas"></canvas>
+
+    <div class="app-wrapper">
+        <!-- ═══════ SIDEBAR ═══════ -->
+        <aside class="sidebar" id="sidebar">
+            <!-- Logo -->
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div class="logo-icon">🧠</div>
+                    <div class="logo-text">
+                        <span class="logo-title">DS Master</span>
+                        <span class="logo-subtitle">جامعة برج العرب التكنولوجيا</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject Badge -->
+            <div class="subject-selector">
+                <div class="subject-badge">
+                    <span class="subject-badge-icon">📐</span>
+                    <span class="subject-badge-text">هياكل البيانات</span>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">المحاضرات</div>
+                <div id="sidebar-nav">
+                    <!-- Dynamically populated by JS -->
+                </div>
+            </nav>
+
+            <!-- Footer -->
+            <div class="sidebar-footer">
+                <div class="sidebar-progress">
+                    <div class="progress-label">
+                        <span>التقدم</span>
+                        <span>9 محاضرات</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%"></div>
+                    </div>
+                </div>
+                <button class="exam-btn" onclick="navigate('exam')">
+                    <span>📝</span> اختبار شامل
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sidebar Overlay (mobile) -->
+        <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+        <!-- ═══════ MAIN AREA ═══════ -->
+        <main>
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle Menu">☰</button>
+                    <div class="breadcrumb">
+                        <span class="breadcrumb-item">الرئيسية</span>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <!-- Language Toggle -->
+                    <div class="lang-toggle">
+                        <button class="lang-option active" data-lang="ar" onclick="setLanguage('ar')">عربي</button>
+                        <button class="lang-option" data-lang="en" onclick="setLanguage('en')">EN</button>
+                    </div>
+
+                    <!-- Theme Toggle -->
+                    <div class="theme-toggle" onclick="toggleTheme()" role="button" aria-label="Toggle Theme">
+                        <div class="theme-toggle-thumb">🌙</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="main-content" id="main-content">
+                <!-- Dynamically rendered by JS -->
+                <div class="content-wrapper" style="text-align:center; padding: 4rem 0;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🧠</div>
+                    <h1 style="font-size: 1.5rem; color: var(--text-heading);">جاري التحميل...</h1>
+                    <p style="color: var(--text-muted);">Loading DS Master...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts (order matters!) -->
+    <script src="js/data.js"></script>
+    <script src="js/quizzes.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
