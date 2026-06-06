@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structure - Lecture 2 & Sheet 2</title>
+    <style>
+        /* إعدادات الخلفية الكحلي الداكنة - Dark Theme */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #020c1b, #0a192f, #112240);
+            background-attachment: fixed;
+            color: #cbd5e1;
+            line-height: 1.8;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 950px;
+            width: 100%;
+            background: rgba(16, 30, 54, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        h1 {
+            text-align: center;
+            color: #64ffda;
+            border-bottom: 2px solid #233554;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #e6f1ff;
+            margin-top: 40px;
+            border-right: 4px solid #64ffda;
+            padding-right: 15px;
+            background: linear-gradient(90deg, rgba(100, 255, 218, 0.05) 0%, transparent 100%);
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: rgba(2, 12, 27, 0.4);
+            margin-bottom: 12px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            font-size: 1.1em;
+        }
+
+        /* تنسيق الزتونة */
+        .zatouna {
+            color: #ff4d4d;
+            font-weight: bold;
+        }
+
+        /* تنسيق الإنجليزي */
+        .en {
+            font-family: 'Courier New', Courier, monospace;
+            color: #8892b0;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        strong { color: #e6f1ff; }
+
+        /* تنسيق الأكواد - IDE Style */
+        pre {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 15px;
+            direction: ltr;
+            text-align: left;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 1.05em;
+        }
+        
+        .code-comment { color: #8b949e; font-style: italic; }
+        .code-keyword { color: #ff7b72; font-weight: bold; }
+        .code-type { color: #79c0ff; }
+        .code-operator { color: #d2a8ff; }
+        .code-number { color: #a5d6ff; }
+        .code-string { color: #a5d6ff; }
+
+        .complexity-box {
+            background: rgba(100, 255, 218, 0.05);
+            border: 1px solid #64ffda;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #64ffda;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Data Structure - Week 2 (Time Complexity)</h1>
+
+        <h2>1. يعني إيه Time Complexity (تعقيد الوقت)؟</h2>
+        <ul>
+            <li>لما بنكتب كود، مش بنقيس سرعته بالثواني (لأن كمبيوترك غير كمبيوتر زميلك). إحنا بنقيس السرعة بناءً على <strong>حجم البيانات (<span class="en">n</span>)</strong>. لو البيانات زادت، الكود هياخد وقت زيادة قد إيه؟</li>
+            <li>عشان نعبر عن ده، بنستخدم حاجة اسمها <strong><span class="en">Big O Notation</span> (O الكبيرة)</strong>. دي بتعبر عن <span class="zatouna">أسوأ سيناريو (Worst Case)</span> ممكن الكود يمر بيه.</li>
+            <li><span class="zatouna">القاعدة الذهبية الأولى:</span> دايماً بنهمل الأرقام الثابتة (Constants) وبناخد أعلى أُس. يعني لو كود وقته <code>1 + n + n^2</code>، بنقول عليه فوراً <code>O(n^2)</code> لأن لما الـ n تكون بمليون، الواحد والـ n مش هيكون ليهم أي قيمة جنب الـ n تربيع.</li>
+        </ul>
+
+        <h2>2. القواعد الستة لحساب الوقت (The 6 Cases)</h2>
+
+        <h3>أولاً: العمليات الثابتة (Constant Time) - <code>O(1)</code></h3>
+        <ul>
+            <li>أي عملية حسابية بسيطة (+, -, *, /) أو تعريف متغير (int x = 5) أو عملية مقارنة (if x > 5) بتاخد وقت ثابت، وبنرمز ليه بـ <strong><code>O(1)</code></strong>.</li>
+            <li>حتى لو عندك 100 سطر تعريف متغيرات، برضه هيتلموا في الآخر ويكونوا <code>O(1)</code> لإننا بنهمل الثوابت.</li>
+        </ul>
+<pre>
+<span class="code-type">int</span> x = <span class="code-number">1</span>;      <span class="code-comment">// 1 unit of time</span>
+<span class="code-type">int</span> y = <span class="code-number">2</span>;      <span class="code-comment">// 1 unit of time</span>
+<span class="code-type">int</span> z = x + y;  <span class="code-comment">// 1 unit of time</span>
+print(z);       <span class="code-comment">// 1 unit of time</span>
+<span class="code-comment">// Total = 4 units -> O(1)</span>
+</pre>
+
+        <h3>ثانياً: الجمل الشرطية (If-Else)</h3>
+        <ul>
+            <li>الكمبيوتر هيدخل يا إما في الـ if يا إما في الـ else (مستحيل يدخل الاتنين).</li>
+            <li>بما إننا بنحسب الـ <strong>Worst Case (أسوأ حالة)</strong>، بناخد الوقت بتاع البلوك الأطول فيهم.</li>
+        </ul>
+<pre>
+<span class="code-keyword">if</span> (n == <span class="code-number">0</span>) {
+    <span class="code-comment">// statement takes O(1)</span>
+} <span class="code-keyword">else</span> {
+    <span class="code-keyword">for</span> (<span class="code-type">int</span> j = <span class="code-number">1</span>; j <= n; j++) {
+        <span class="code-comment">// statement executes n times -> O(n)</span>
+    }
+}
+</pre>
+        <div class="complexity-box">النتيجة: الكود الأطول هو الـ else، يبقى الوقت الكلي = O(n)</div>
+
+        <h3>ثالثاً: اللوب العادية (Loops)</h3>
+        <ul>
+            <li>اللوب اللي بتزيد بمقدار ثابت (زي <code>i++</code> أو <code>i+=2</code>) بتنفذ الكود اللي جواها <code>n</code> من المرات.</li>
+            <li>الوقت بيساوي: عدد لفات اللوب × وقت الكود اللي جواها.</li>
+        </ul>
+<pre>
+<span class="code-type">int</span> sum = <span class="code-number">0</span>;
+<span class="code-keyword">for</span> (<span class="code-type">int</span> i = <span class="code-number">1</span>; i <= n; i++) {
+    sum = sum + i; <span class="code-comment">// Takes O(1)</span>
+}
+</pre>
+        <div class="complexity-box">النتيجة: اللوب بتلف n مرة × الكود بياخد 1 = O(n)</div>
+
+        <h3>رابعاً: اللوب المتداخلة (Nested Loops)</h3>
+        <ul>
+            <li>هنا بنضرب عدد لفات اللوب الخارجية في عدد لفات اللوب الداخلية. (n * n = n^2).</li>
+        </ul>
+<pre>
+<span class="code-keyword">for</span> (<span class="code-type">int</span> i = <span class="code-number">1</span>; i <= n; i++) {
+    <span class="code-keyword">for</span> (<span class="code-type">int</span> j = <span class="code-number">1</span>; j <= n; j++) {
+        <span class="code-comment">// statement takes O(1)</span>
+    }
+}
+</pre>
+        <div class="complexity-box">النتيجة: O(n) خارجي × O(n) داخلي = O(n^2)</div>
+
+        <h3>خامساً: اللوغاريتمات (Logarithmic Time) - الزتونة اللي بتلخبط 🧠</h3>
+        <ul>
+            <li><span class="zatouna">ركز هنا يا مهندس:</span> اللوب اللي فيها العداد <strong>بينضرب</strong> أو <strong>بيتقسم</strong> (زي <code>i = i * 2</code> أو <code>i = i / 2</code>) دي مابتلفش n مرة، دي بتلف <code>Log n</code> مرة. ليه؟</li>
+            <li>تخيل إن الـ <code>n = 8</code>. لو بنجمع واحد (i++)، اللوب هتلف 8 مرات.
+            <br>لكن لو بنضرب في 2 (i=i*2)، الـ i هتكون قيمها: 1 ثم 2 ثم 4 ثم 8. يعني لفت <strong>3 مرات بس!</strong></li>
+            <li>في الرياضة: 2 أُس كام يساوي 8؟ الإجابة 3. وهي دي فكرة الـ Logarithm الأساس 2 للرقم 8 = 3.</li>
+            <li>لو بنضرب في 3 (i=i*3)، يبقى الـ Time Complexity هو <code>O(log_3 n)</code>.</li>
+        </ul>
+<pre>
+<span class="code-keyword">for</span> (<span class="code-type">int</span> i = <span class="code-number">1</span>; i <= n; i = i * <span class="code-number">2</span>) {
+    print(i);
+}
+</pre>
+        <div class="complexity-box">النتيجة: عشان بنضرب في 2، الوقت = O(log n)</div>
+
+        <h2>3. أمثلة وتريكات من الشيت (التفاصيل المملة)</h2>
+
+        <h3>تريكة رقم 1: معادلة رياضية بدل اللوب</h3>
+        <ul>
+            <li>في مثال طلب منك تجمع الأرقام من 1 لـ n. لو عملناها بـ for loop هتاخد <code>O(n)</code>.</li>
+            <li>لكن لو استخدمنا قانون رياضي: <code>Sum = n * (n + 1) / 2</code>. السطر ده عبارة عن ضرب وقسمة وجمع، يعني عمليات ثابتة!</li>
+        </ul>
+<pre>
+<span class="code-type">int</span> sum = n * (n + <span class="code-number">1</span>) / <span class="code-number">2</span>; <span class="code-comment">// Takes constant time 1</span>
+</pre>
+        <div class="complexity-box">النتيجة: O(1) - وده يثبتلك إن خوارزمية الرياضيات أسرع بكتير من اللوب!</div>
+
+        <h3>تريكة رقم 2: دمج أكتر من نوع لوب (O(n log n))</h3>
+        <ul>
+            <li>لو عندك لوب خارجية بتزيد بالجمع (n)، وجواها لوب داخلية بتزيد بالضرب أو القسمة (log n).</li>
+        </ul>
+<pre>
+<span class="code-keyword">for</span> (<span class="code-type">int</span> i = <span class="code-number">0</span>; i < n; i++) {                 <span class="code-comment">// Outer loop: O(n)</span>
+    <span class="code-keyword">for</span> (<span class="code-type">int</span> j = <span class="code-number">1</span>; j < n; j = j * <span class="code-number">3</span>) {     <span class="code-comment">// Inner loop: O(log_3 n)</span>
+        print(i + j);
+    }
+}
+</pre>
+        <div class="complexity-box">النتيجة: بنضربهم في بعض = O(n * log_3 n)</div>
+
+        <h3>تريكة رقم 3 (وحش الشيت): ثلاث لوبات متداخلة!</h3>
+        <ul>
+            <li>تعالى نفصص المثال الصعب ده اللي موجود في آخر صفحة في الشيت التاني:</li>
+        </ul>
+<pre>
+<span class="code-keyword">for</span> (<span class="code-type">int</span> i = n/<span class="code-number">2</span>; i < n; i++) {              <span class="code-comment">// Loop 1</span>
+    <span class="code-keyword">for</span> (<span class="code-type">int</span> k = <span class="code-number">1</span>; k < n; k = k * <span class="code-number">2</span>) {      <span class="code-comment">// Loop 2</span>
+        <span class="code-keyword">for</span> (<span class="code-type">int</span> j = <span class="code-number">1</span>; j < n; j = <span class="code-number">2</span> * j) {  <span class="code-comment">// Loop 3</span>
+            print(i + j + k);
+        }
+    }
+}
+</pre>
+        <ul>
+            <li><strong>اللوب الأولى:</strong> بتبدأ من n/2 لحد n وتمشي خطوة خطوة (i++). يعني هتمشي نص مشوار الـ n. الوقت بتاعها <code>n/2</code> اللي هو برضه بنعتبره <code>O(n)</code> لإننا بنطير الثوابت (المقسوم على 2).</li>
+            <li><strong>اللوب التانية:</strong> بتضرب في 2 (k = k * 2). الوقت بتاعها <code>O(log_2 n)</code>.</li>
+            <li><strong>اللوب التالتة:</strong> بتضرب في 2 (j = 2 * j). الوقت بتاعها <code>O(log_2 n)</code>.</li>
+            <li>بما إنهم جوة بعض، بنضرب الأوقات: <code>n * (log n) * (log n)</code></li>
+        </ul>
+        <div class="complexity-box">النتيجة النهائية: O(n (log n)^2)</div>
+
+        <h2>4. ترتيب الكفاءة (Efficiency Order)</h2>
+        <p>عشان لو جالك سؤال رتب الـ Time Complexity من الأسرع (الأفضل) للبطيء (الأسوأ):</p>
+        <ul style="direction: ltr; text-align: left;">
+            <li>1. <strong>O(1)</strong> -> Constant (أسرع حاجة، طلقة)</li>
+            <li>2. <strong>O(log n)</strong> -> Logarithmic (سريع جداً زي الضرب والقسمة)</li>
+            <li>3. <strong>O(n)</strong> -> Linear (عادي، زي اللوب البسيطة)</li>
+            <li>4. <strong>O(n log n)</strong> -> (أغلب خوارزميات الترتيب السريعة بتقع هنا)</li>
+            <li>5. <strong>O(n^2)</strong> -> Quadratic (بطيء، زي الـ Nested loops)</li>
+            <li>6. <strong>O(2^n)</strong> -> Exponential (أسوأ حاجة، الكود هيموت لو الـ n كبرت)</li>
+        </ul>
+
+    </div>
+
+</body>
+</html>

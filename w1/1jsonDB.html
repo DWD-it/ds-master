@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structure - Lecture 1 & Sheet 1</title>
+    <style>
+        /* إعدادات الخلفية الكحلي الداكنة - Dark Theme */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #020c1b, #0a192f, #112240);
+            background-attachment: fixed;
+            color: #cbd5e1;
+            line-height: 1.8;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 950px;
+            width: 100%;
+            background: rgba(16, 30, 54, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        h1 {
+            text-align: center;
+            color: #64ffda;
+            border-bottom: 2px solid #233554;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #e6f1ff;
+            margin-top: 40px;
+            border-right: 4px solid #64ffda;
+            padding-right: 15px;
+            background: linear-gradient(90deg, rgba(100, 255, 218, 0.05) 0%, transparent 100%);
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: rgba(2, 12, 27, 0.4);
+            margin-bottom: 12px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            font-size: 1.1em;
+        }
+
+        /* تنسيق الزتونة */
+        .zatouna {
+            color: #ff4d4d;
+            font-weight: bold;
+        }
+
+        /* تنسيق الإنجليزي */
+        .en {
+            font-family: 'Courier New', Courier, monospace;
+            color: #8892b0;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        strong { color: #e6f1ff; }
+
+        /* ========= قسم الرسومات (CSS Drawings) ========= */
+        .diagram-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px dashed #64ffda;
+        }
+
+        .diagram-title {
+            color: #64ffda;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* 1. Array Diagram */
+        .array-diagram {
+            display: flex;
+            justify-content: center;
+            gap: 2px;
+        }
+        .array-cell {
+            width: 50px; height: 50px;
+            background: #112240;
+            border: 2px solid #64ffda;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #e6f1ff;
+            position: relative;
+        }
+        .array-index {
+            position: absolute;
+            bottom: -25px;
+            font-size: 0.6em;
+            color: #8892b0;
+        }
+
+        /* 2. Stack Diagram */
+        .stack-diagram {
+            display: inline-block;
+            border-bottom: 3px solid #64ffda;
+            border-left: 3px solid #64ffda;
+            border-right: 3px solid #64ffda;
+            padding: 10px;
+            width: 100px;
+            position: relative;
+            margin: 0 auto;
+        }
+        .stack-item {
+            background: #112240;
+            border: 1px solid #64ffda;
+            padding: 10px;
+            margin-top: 5px;
+            color: #fff;
+        }
+        .stack-arrow {
+            position: absolute;
+            top: -30px; left: 50%;
+            transform: translateX(-50%);
+            color: #ff4d4d;
+            font-weight: bold;
+        }
+
+        /* 3. Queue Diagram */
+        .queue-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .queue-box {
+            display: flex;
+            border-top: 3px solid #64ffda;
+            border-bottom: 3px solid #64ffda;
+            padding: 10px;
+            gap: 5px;
+        }
+        .queue-item {
+            width: 40px; height: 40px;
+            background: #112240;
+            border: 1px solid #64ffda;
+            display: flex; align-items: center; justify-content: center; color: #fff;
+        }
+
+        /* 4. Linked List Diagram */
+        .ll-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ll-node {
+            display: flex;
+            border: 1px solid #64ffda;
+            background: #112240;
+            height: 40px;
+        }
+        .ll-data { padding: 5px 15px; border-left: 1px solid #64ffda; color: #fff; display: flex; align-items: center;}
+        .ll-next { padding: 5px 10px; font-size: 0.8em; color: #8892b0; display: flex; align-items: center; }
+        .ll-arrow { margin: 0 10px; color: #ff4d4d; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Data Structure - Week 1 (Lecture & Sheet)</h1>
+
+        <h2>1. أساسيات هياكل البيانات (Introduction)</h2>
+        <ul>
+            <li><strong>ما هي الـ <span class="en">Data Structure</span>؟</strong><br>
+                هي طريقة لتنظيم وترتيب البيانات في الذاكرة (<span class="en">Memory</span>) عشان نقدر نستخدمها بكفاءة (<span class="en">Efficiently</span>).</li>
+            <li><strong>تأثيرها:</strong> بتأثر على التصميم الهيكلي والوظيفي للبرنامج.</li>
+            <li><span class="zatouna">الزتونة: المعادلة الذهبية للبرمجة هي:</span><br>
+                <strong style="color: #64ffda; font-size: 1.2em;"><span class="en">Program = Algorithm + Data Structure</span></strong>
+            </li>
+            <li><strong>الخوارزمية (<span class="en">Algorithm</span>):</strong> هي خطوات متسلسلة لحل مشكلة أو أداء وظيفة معينة.</li>
+            <li><strong>مفاهيم هامة:</strong><br>
+                - <span class="en">Implementation:</span> البرنامج اللي بيبني أو بيُنفذ الـ Data Structure نفسها.<br>
+                - <span class="en">Client Program:</span> البرنامج اللي بيستخدم الـ Data Structure الجاهزة.
+            </li>
+        </ul>
+
+        <h2>2. العمليات الأساسية على البيانات (Functions on DATA)</h2>
+        <ul>
+            <li><span class="en">Storing:</span> تخزين البيانات.</li>
+            <li><span class="en">Insertion:</span> إضافة عنصر جديد.</li>
+            <li><span class="en">Deletion:</span> مسح عنصر.</li>
+            <li><span class="en">Searching:</span> البحث عن عنصر معين.</li>
+        </ul>
+
+        <h2>3. تصنيف هياكل البيانات (Classification of Data Structure)</h2>
+        <p style="color: #8892b0; font-size: 1.1em;">دي الرسمة اللي في (صفحة 11) حولتها لك لشكل شجري مبسط:</p>
+        
+        <div class="diagram-box" style="text-align: right; direction: ltr;">
+            <ul style="list-style-type: none; padding-left: 20px; color: #e6f1ff;">
+                <li>📂 <strong>Data Structure</strong>
+                    <ul style="padding-left: 30px; border-left: 1px dashed #64ffda; margin-top: 10px;">
+                        <li style="background: transparent; border: none; padding: 5px;">📁 <strong>Primitive (أساسية)</strong>: Integer, Float, Character, Pointer</li>
+                        <li style="background: transparent; border: none; padding: 5px;">📁 <strong>Non-Primitive (غير أساسية)</strong>
+                            <ul style="padding-left: 30px; border-left: 1px dashed #64ffda; margin-top: 10px;">
+                                <li style="background: transparent; border: none; padding: 5px;">➖ <strong>Linear (خطية)</strong>: Array, Linked List, Stack, Queue</li>
+                                <li style="background: transparent; border: none; padding: 5px;">🌿 <strong>Non-Linear (غير خطية)</strong>: Trees, Graphs</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <h2>4. هياكل البيانات الخطية (Linear Data Structure)</h2>
+        <ul>
+            <li><strong>تعريفها:</strong> العناصر بتترتب بشكل خطي أو متسلسل (<span class="en">Sequential order</span>). كل عنصر ليه سابق (Predecessor) ولاحق (Successor) واحد فقط، ما عدا العنصر الأول والأخير.</li>
+        </ul>
+
+        <!-- رسومات الـ Linear DS -->
+        <div class="diagram-box">
+            <div class="diagram-title">1. Array (المصفوفة)</div>
+            <p style="font-size: 0.9em; color:#8892b0;">عناصر متجاورة في الذاكرة بنوصلها بالـ Index (صفحة 7)</p>
+            <div class="array-diagram">
+                <div class="array-cell">5<span class="array-index">0</span></div>
+                <div class="array-cell">10<span class="array-index">1</span></div>
+                <div class="array-cell">3<span class="array-index">2</span></div>
+                <div class="array-cell">7<span class="array-index">3</span></div>
+                <div class="array-cell">1<span class="array-index">4</span></div>
+            </div>
+        </div>
+
+        <div class="diagram-box">
+            <div class="diagram-title">2. Stack (المكدس - الرصّة)</div>
+            <p style="font-size: 0.9em; color:#8892b0;">زي رصة الأطباق، اللي بيدخل الأخر بيخرج الأول (LIFO) (صفحة 8)</p>
+            <div class="stack-diagram">
+                <div class="stack-arrow">↓ Push / Pop ↑</div>
+                <div class="stack-item">A3</div>
+                <div class="stack-item">A2</div>
+                <div class="stack-item">A1</div>
+            </div>
+        </div>
+
+        <div class="diagram-box">
+            <div class="diagram-title">3. Queue (الطابور)</div>
+            <p style="font-size: 0.9em; color:#8892b0;">زي طابور العيش، اللي بيدخل الأول بيخرج الأول (FIFO) (صفحة 12)</p>
+            <div class="queue-diagram">
+                <span style="color:#ff4d4d; font-weight:bold;">EnQueue → </span>
+                <div class="queue-box">
+                    <div class="queue-item">5</div>
+                    <div class="queue-item">10</div>
+                    <div class="queue-item">3</div>
+                </div>
+                <span style="color:#ff4d4d; font-weight:bold;"> → DeQueue</span>
+            </div>
+        </div>
+
+        <div class="diagram-box">
+            <div class="diagram-title">4. Linked List (القائمة المتصلة)</div>
+            <p style="font-size: 0.9em; color:#8892b0;">كل عنصر (Node) شايل الداتا وشايل عنوان العنصر اللي بعده (صفحة 12)</p>
+            <div class="ll-diagram">
+                <div class="ll-node"><div class="ll-data">1</div><div class="ll-next">Next</div></div>
+                <div class="ll-arrow">→</div>
+                <div class="ll-node"><div class="ll-data">2</div><div class="ll-next">Next</div></div>
+                <div class="ll-arrow">→</div>
+                <div style="color: #64ffda;">Null</div>
+            </div>
+        </div>
+
+        <h2>5. هياكل البيانات غير الخطية (Non-Linear Data Structure)</h2>
+        <ul>
+            <li><strong>تعريفها:</strong> العناصر <span class="zatouna">غير مرتبة</span> بشكل متسلسل، يعني مفيش ترتيب خطي واضح.</li>
+            <li><strong>أمثلتها (صفحة 13):</strong>
+                <br>1- <strong><span class="en">Trees</span> (الأشجار):</strong> بتستخدم في العلاقات الهرمية (زي الـ Folders في الويندوز).
+                <br>2- <strong><span class="en">Graphs</span> (الرسوم البيانية):</strong> زي شبكات الطرق أو شبكات التواصل الاجتماعي (الكل متوصل ببعضه شبكياً).
+            </li>
+        </ul>
+
+        <h2>6. الكفاءة وتعقيد الوقت (Efficiency & Time Complexity)</h2>
+        <ul>
+            <li><span class="zatouna">الزتونة: كفاءة أي Data Structure بتتقاس بحاجتين: الوقت (Time) والمساحة في الذاكرة (Space).</span></li>
+            <li>أفضل DS هي اللي بتاخد <span class="zatouna">أقل وقت</span> للعمليات و <span class="zatouna">أقل مساحة</span> في الميموري.</li>
+            <li><strong>حالات الـ Time Complexity في البحث (صفحة 18):</strong>
+                <br>- <strong><span class="en">Best Case (Ω - Omega):</span></strong> أفضل حالة، إنك تلاقي الرقم في أول عنصر (Fast Time).
+                <br>- <strong><span class="en">Average Case (Θ - Theta):</span></strong> الحالة المتوسطة، تلاقيه في النص تقريباً.
+                <br>- <strong><span class="en">Worst Case (O - Big O):</span></strong> أسوأ حالة، إنك تضطر تدور في العناصر كلها وتلاقيه في الآخر أو متلاقيهوش خالص (Slow Time). ودي اللي دايماً بنركز عليها في البرمجة.
+            </li>
+        </ul>
+
+        <h2>📝 إجابات أسئلة الشيت الأول (Sheet 1)</h2>
+        <ul>
+            <li><strong>Q1: Complete the following:</strong><br>
+                1. A data structure is the <span class="zatouna">organization</span> of the data in a way that it can be used efficiently.<br>
+                2. Data structure affects the design of both structural & functional aspects of a program.<br>
+                3. The program which implements the data structure is known as the <span class="zatouna">implementation</span>.<br>
+                4. The program that uses data structure is called a <span class="zatouna">client program</span>.<br>
+                5. Program = <span class="zatouna">algorithm</span> + <span class="zatouna">Data Structure</span>.<br>
+                6. <span class="zatouna">Algorithm</span> is a step by step procedure to solve a particular function.
+            </li>
+            <br>
+            <li><strong>Q2: Answer the following:</strong><br>
+                <strong>- What is the difference between DS and database?</strong><br>
+                <span class="zatouna">الزتونة:</span> الـ Data Structure بتُستخدم لتخزين البيانات في الـ <strong>Main Memory (RAM)</strong> أثناء تشغيل البرنامج (مؤقتة)، لكن الـ Database بتُستخدم لتخزين البيانات في الـ <strong>Secondary Storage (Hard Disk)</strong> بشكل دائم (Permanent).<br><br>
+                
+                <strong>- Why we need data structure?</strong><br>
+                لأنها بتخلينا ننظم البيانات ونستخدمها بكفاءة عالية جداً من حيث السرعة (Time) واستهلاك الميموري (Space).<br><br>
+
+                <strong>- Mention the different types of data structure:</strong><br>
+                1. Primitive (Integer, Float, Character, Pointer).<br>
+                2. Non-Primitive Linear (Array, Linked List, Stack, Queue).<br>
+                3. Non-Primitive Non-Linear (Trees, Graphs).
+            </li>
+        </ul>
+
+    </div>
+
+</body>
+</html>
