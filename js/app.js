@@ -336,8 +336,43 @@ function renderHome(container) {
             <div class="home-stat-label">${t('statVisuals')}</div>
           </div>
         </div>
+        <div class="hero-cta-group" style="animation: fadeInUp 0.6s ease-out 0.4s backwards;">
+          <button class="btn-cta-primary" onclick="navigate('lecture', 1)">
+            <span class="cta-icon">🚀</span>
+            <span>${DSMaster.lang === 'ar' ? 'ابدأ التعلم الآن' : 'Start Learning Now'}</span>
+            <span class="cta-arrow">${DSMaster.lang === 'ar' ? '←' : '→'}</span>
+          </button>
+          <button class="btn-cta-secondary" onclick="navigate('exam')">
+            <span>📝</span>
+            <span>${DSMaster.lang === 'ar' ? 'اختبر نفسك' : 'Test Yourself'}</span>
+          </button>
+        </div>
       </div>
 
+      <!-- Interactive Stack Demo -->
+      <div class="home-demo-section" style="animation: fadeInUp 0.6s ease-out 0.5s backwards;">
+        <div class="demo-header">
+          <h2 class="demo-title">${DSMaster.lang === 'ar' ? '⚡ جرّب بنفسك - محاكي الـ Stack' : '⚡ Try it - Stack Simulator'}</h2>
+          <p class="demo-desc">${DSMaster.lang === 'ar' ? 'اضغط Push لإضافة عنصر أو Pop لحذف آخر عنصر' : 'Click Push to add or Pop to remove the top element'}</p>
+        </div>
+        <div class="demo-body">
+          <div class="demo-stack-container">
+            <div class="demo-stack-label">TOP ↓</div>
+            <div class="demo-stack" id="demo-stack"></div>
+            <div class="demo-stack-base">STACK</div>
+          </div>
+          <div class="demo-controls">
+            <input type="number" id="demo-stack-input" placeholder="${DSMaster.lang === 'ar' ? 'رقم' : 'Value'}" min="0" max="99" value="${Math.floor(Math.random() * 50) + 1}" />
+            <button class="btn btn-primary" onclick="demoPush()">Push ↓</button>
+            <button class="btn btn-secondary" onclick="demoPop()">Pop ↑</button>
+          </div>
+          <div class="demo-output" id="demo-output"></div>
+        </div>
+      </div>
+
+      <h2 class="home-section-title" style="animation: fadeInUp 0.5s ease-out 0.6s backwards;">
+        ${DSMaster.lang === 'ar' ? '📚 المحاضرات' : '📚 Lectures'}
+      </h2>
       <div class="home-lectures-grid">
   `;
 
@@ -812,6 +847,60 @@ function showResults() {
     </div>
   `;
   container.innerHTML = html;
+}
+
+// ── Interactive Stack Demo ──
+const demoStackData = [];
+const stackColors = ['#7c6cf0', '#00d2d3', '#fd79a8', '#ffc048', '#00b894', '#a29bfe', '#ff4757', '#74b9ff', '#55efc4'];
+
+function demoPush() {
+  const input = document.getElementById('demo-stack-input');
+  const val = input ? input.value.trim() : '';
+  if (!val || demoStackData.length >= 7) {
+    showDemoOutput(DSMaster.lang === 'ar' ? '⚠️ الـ Stack ممتلئ أو لا يوجد قيمة!' : '⚠️ Stack is full or no value!', 'error');
+    return;
+  }
+  demoStackData.push(val);
+  renderDemoStack();
+  showDemoOutput(DSMaster.lang === 'ar' ? `✅ تم إضافة ${val} في أعلى الـ Stack` : `✅ Pushed ${val} to top of Stack`, 'success');
+  input.value = Math.floor(Math.random() * 50) + 1;
+}
+
+function demoPop() {
+  if (demoStackData.length === 0) {
+    showDemoOutput(DSMaster.lang === 'ar' ? '⚠️ الـ Stack فارغ! (Stack Underflow)' : '⚠️ Stack is empty! (Stack Underflow)', 'error');
+    return;
+  }
+  const removed = demoStackData.pop();
+  renderDemoStack();
+  showDemoOutput(DSMaster.lang === 'ar' ? `🗑️ تم حذف ${removed} من أعلى الـ Stack` : `🗑️ Popped ${removed} from top of Stack`, 'info');
+}
+
+function renderDemoStack() {
+  const el = document.getElementById('demo-stack');
+  if (!el) return;
+  if (demoStackData.length === 0) {
+    el.innerHTML = `<div class="demo-stack-empty">${DSMaster.lang === 'ar' ? 'فارغ' : 'Empty'}</div>`;
+    return;
+  }
+  el.innerHTML = demoStackData.slice().reverse().map((val, i) => {
+    const color = stackColors[(demoStackData.length - 1 - i) % stackColors.length];
+    const isTop = i === 0;
+    return `<div class="demo-stack-item ${isTop ? 'is-top' : ''}" style="background: ${color}20; border-color: ${color}; animation: slideInFromTop 0.3s ease-out; ${isTop ? `box-shadow: 0 0 15px ${color}50;` : ''}">
+      <span class="demo-stack-val">${val}</span>
+      ${isTop ? '<span class="demo-top-badge">TOP</span>' : ''}
+    </div>`;
+  }).join('');
+}
+
+function showDemoOutput(msg, type) {
+  const el = document.getElementById('demo-output');
+  if (!el) return;
+  el.className = `demo-output demo-output-${type}`;
+  el.textContent = msg;
+  el.style.animation = 'none';
+  el.offsetHeight; // trigger reflow
+  el.style.animation = 'fadeInUp 0.3s ease-out';
 }
 
 // ── Utility Functions ──
