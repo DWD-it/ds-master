@@ -9,7 +9,7 @@ const DSMaster = {
   currentView: 'home', // 'home', 'lecture', 'quiz', 'exam'
   lang: localStorage.getItem('ds-lang') || 'ar',
   theme: localStorage.getItem('ds-theme') || 'dark',
-  sidebarOpen: false,
+  sidebarOpen: window.innerWidth > 768, // starts open on desktop, closed on mobile
   quizState: null,
 };
 
@@ -102,7 +102,13 @@ function initTheme() {
 }
 
 function toggleTheme() {
-  DSMaster.theme = DSMaster.theme === 'dark' ? 'light' : 'dark';
+  if (DSMaster.theme === 'dark') {
+    DSMaster.theme = 'light';
+  } else if (DSMaster.theme === 'light') {
+    DSMaster.theme = 'black';
+  } else {
+    DSMaster.theme = 'dark';
+  }
   document.documentElement.setAttribute('data-theme', DSMaster.theme);
   localStorage.setItem('ds-theme', DSMaster.theme);
   updateThemeIcon();
@@ -112,7 +118,13 @@ function toggleTheme() {
 function updateThemeIcon() {
   const thumb = document.querySelector('.theme-toggle-thumb');
   if (thumb) {
-    thumb.textContent = DSMaster.theme === 'dark' ? '🌙' : '☀️';
+    if (DSMaster.theme === 'dark') {
+      thumb.textContent = '🌙';
+    } else if (DSMaster.theme === 'light') {
+      thumb.textContent = '☀️';
+    } else if (DSMaster.theme === 'black') {
+      thumb.textContent = '🌑';
+    }
   }
 }
 
@@ -151,20 +163,34 @@ function toggleSidebar() {
   DSMaster.sidebarOpen = !DSMaster.sidebarOpen;
   const sidebar = document.querySelector('.sidebar');
   const overlay = document.querySelector('.sidebar-overlay');
+  
   if (sidebar) sidebar.classList.toggle('open', DSMaster.sidebarOpen);
   if (overlay) overlay.classList.toggle('open', DSMaster.sidebarOpen);
+  
+  document.body.classList.toggle('sidebar-closed', !DSMaster.sidebarOpen);
 }
 
 function closeSidebar() {
-  DSMaster.sidebarOpen = false;
-  const sidebar = document.querySelector('.sidebar');
-  const overlay = document.querySelector('.sidebar-overlay');
-  if (sidebar) sidebar.classList.remove('open');
-  if (overlay) overlay.classList.remove('open');
+  // Only close automatically on mobile screens to allow seamless desktop navigation
+  if (window.innerWidth <= 768) {
+    DSMaster.sidebarOpen = false;
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+    document.body.classList.add('sidebar-closed');
+  }
+}
+
+function initSidebarState() {
+  document.body.classList.toggle('sidebar-closed', !DSMaster.sidebarOpen);
 }
 
 // ── Navigation / Routing ──
 function navigate(view, param) {
+  // If navigating explicitly via sidebar/buttons, reset quiz state
+  DSMaster.quizState = null;
+  
   DSMaster.currentView = view;
   DSMaster.currentLecture = param || null;
   closeSidebar();
@@ -181,11 +207,14 @@ function navigate(view, param) {
   }
   
   renderCurrentView();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo(0, 0);
 }
 
 function handleHashChange() {
   const hash = window.location.hash.slice(1);
+  const oldView = DSMaster.currentView;
+  const oldLecture = DSMaster.currentLecture;
+  
   if (!hash) {
     DSMaster.currentView = 'home';
     DSMaster.currentLecture = null;
@@ -197,7 +226,14 @@ function handleHashChange() {
     DSMaster.currentLecture = parseInt(hash.split('-')[1]);
   } else if (hash === 'exam') {
     DSMaster.currentView = 'exam';
+    DSMaster.currentLecture = null;
   }
+  
+  // If hash changed to a different view or different lecture, clear quizState
+  if (DSMaster.currentView !== oldView || DSMaster.currentLecture !== oldLecture) {
+    DSMaster.quizState = null;
+  }
+  
   renderCurrentView();
 }
 
@@ -647,6 +683,12 @@ function renderQuiz(container, lectureId) {
     return;
   }
 
+  // Preserve existing quiz state if it matches the current lecture
+  if (DSMaster.quizState && !DSMaster.quizState.isExam && DSMaster.quizState.lectureId === lectureId) {
+    renderQuizQuestion(container);
+    return;
+  }
+
   const questions = shuffleArray([...QUIZZES[lectureId]]);
   DSMaster.quizState = {
     questions,
@@ -663,6 +705,12 @@ function renderQuiz(container, lectureId) {
 function renderExam(container) {
   if (typeof QUIZZES === 'undefined') {
     container.innerHTML = `<div class="content-wrapper"><p>No quiz data</p></div>`;
+    return;
+  }
+
+  // Preserve existing exam state
+  if (DSMaster.quizState && DSMaster.quizState.isExam) {
+    renderQuizQuestion(container);
     return;
   }
 
@@ -784,7 +832,7 @@ function nextQuestion() {
   if (!qs || qs.currentIndex >= qs.questions.length - 1) return;
   qs.currentIndex++;
   renderQuizQuestion(document.getElementById('main-content'));
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo(0, 0);
 }
 
 function prevQuestion() {
@@ -792,7 +840,7 @@ function prevQuestion() {
   if (!qs || qs.currentIndex <= 0) return;
   qs.currentIndex--;
   renderQuizQuestion(document.getElementById('main-content'));
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo(0, 0);
 }
 
 function showResults() {
@@ -922,9 +970,13 @@ function initParticles() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  const isDark = DSMaster.theme === 'dark';
-  const particleColor = isDark ? 'rgba(124, 108, 240, 0.3)' : 'rgba(95, 61, 196, 0.15)';
-  const lineColor = isDark ? 'rgba(124, 108, 240, 0.08)' : 'rgba(95, 61, 196, 0.05)';
+  const isDark = DSMaster.theme === 'dark' || DSMaster.theme === 'black';
+  const particleColor = DSMaster.theme === 'black'
+    ? 'rgba(255, 255, 255, 0.18)'
+    : (isDark ? 'rgba(124, 108, 240, 0.3)' : 'rgba(95, 61, 196, 0.15)');
+  const lineColor = DSMaster.theme === 'black'
+    ? 'rgba(255, 255, 255, 0.05)'
+    : (isDark ? 'rgba(124, 108, 240, 0.08)' : 'rgba(95, 61, 196, 0.05)');
 
   const particles = [];
   const count = Math.min(60, Math.floor(window.innerWidth / 25));
@@ -1018,6 +1070,7 @@ function buildSidebarNav() {
 // ── Initialize App ──
 function initApp() {
   initTheme();
+  initSidebarState();
   initLang();
   buildSidebarNav();
   handleHashChange();

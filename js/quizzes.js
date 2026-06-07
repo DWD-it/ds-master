@@ -68,7 +68,7 @@ const QUIZZES = {
     },
     {
       question: { ar: 'الـ Queue بيتبع مبدأ؟', en: 'Queue follows which principle?' },
-      options: ['LIFO', 'FIFO', 'LILO', 'Random'],
+      options: ['LIFO', 'FIFO', 'Sequential Access', 'Random Access'],
       correct: 1,
       explanation: { ar: 'Queue = FIFO (First In First Out)', en: 'Queue = FIFO (First In First Out)' }
     },
@@ -317,7 +317,7 @@ const QUIZZES = {
   3: [
     {
       question: { ar: 'الـ Stack بيتبع مبدأ؟', en: 'Stack follows which principle?' },
-      options: ['FIFO', 'LIFO', 'LILO', 'Priority'],
+      options: ['FIFO', 'LIFO', 'Sequential Access', 'Random Access'],
       correct: 1,
       explanation: { ar: 'Stack = LIFO: Last In First Out', en: 'Stack = LIFO: Last In First Out' }
     },
