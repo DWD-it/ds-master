@@ -1036,5 +1036,82 @@ TreeNode* <span class="hl-function">createNode</span>(<span class="hl-type">int<
         codeTitle: 'Tree Traversal Methods'
       }
     ]
+  },
+  10: {
+    id: 10,
+    icon: '🕸️',
+    title: { ar: 'الرسوم البيانية (Graphs)', en: 'Graph Data Structure' },
+    subtitle: { ar: 'مفهوم الرسوم البيانية وطرق تمثيلها والتعريفات الأساسية', en: 'Graph Concepts, Terminology, and Representations' },
+    topics: { ar: 'Vertices, Edges, Undirected vs Directed, Degree, Adjacency Matrix', en: 'Vertices, Edges, Undirected vs Directed, Degree, Adjacency Matrix' },
+    sections: [
+      {
+        icon: '🕸️',
+        title: { ar: '1. ما هو الرسم البياني (Graph)؟', en: '1. What is a Graph?' },
+        content: {
+          ar: `<p>الـ <span class="term-important">Graph</span> هو هيكل بيانات غير خطي (Non-Linear) بيتكون من مجموعة من العُقد تسمى <span class="term-important">Vertices (V)</span> أو Nodes، والروابط بينها تسمى <span class="term-important">Edges (E)</span>.</p>
+<p>صيغته الرياضية: <strong>G = (V, E)</strong></p>
+<p><strong>تطبيقاته في الحياة الحقيقية:</strong></p>
+<p>• <strong>شبكات التواصل الاجتماعي:</strong> زي فيسبوك، حيث المستخدمين هم الـ Vertices والصداقة هي الـ Edges (وهو مثال على Undirected Graph).</p>
+<p>• <strong>خرائط GPS وجوجل ماب:</strong> لإيجاد أقصر مسار بين موقعين.</p>
+<p>💡 <strong>معلومة هامة:</strong> الأشجار (Trees) هي حالات خاصة من الرسوم البيانية (Graphs).</p>`,
+          en: `<p>A <span class="term-important">Graph</span> is a non-linear data structure consisting of a set of nodes called <span class="term-important">Vertices (V)</span>, and connections between them called <span class="term-important">Edges (E)</span>.</p>
+<p>Mathematical formula: <strong>G = (V, E)</strong></p>
+<p><strong>Real-world Applications:</strong></p>
+<p>• <strong>Social Networks:</strong> In Facebook, users are Vertices and friendships are Edges (an example of an Undirected Graph).</p>
+<p>• <strong>GPS & Navigation:</strong> Used to find the shortest path between locations.</p>
+<p>💡 <strong>Key Point:</strong> Trees are special cases of graphs.</p>`
+        }
+      },
+      {
+        icon: '🏷️',
+        title: { ar: '2. مصطلحات أساسية (Graph Terminology)', en: '2. Key Terminology' },
+        content: {
+          ar: `<p>مفاهيم هامة جداً للامتحان:</p>
+<p>• <strong>Degree (درجة العقدة):</strong> عدد الأضلاع (Edges) المتصلة بالعقدة.</p>
+<p>• <strong>In-degree (الدرجة الداخلة):</strong> عدد الأضلاع المتجهة نحو العقدة (في الرسم الموجه).</p>
+<p>• <strong>Out-degree (الدرجة الخارجة):</strong> عدد الأضلاع الخارجة من العقدة.</p>
+<p>• <strong>Adjacent Vertices (العقد المتجاورة):</strong> العقد المتصلة مباشرة بضلع مشترك.</p>
+<p>• <strong>Isolated Vertex (العقدة المعزولة):</strong> عقدة درجتها صفر (ملهاش علاقة بغيرها).</p>
+<p>• <strong>Loop (العروة/الحلقة الذاتية):</strong> ضلع يربط العقدة بنفسها.</p>
+<p>• <strong>Cyclic vs Acyclic:</strong> الرسم البياني الدائري (Cyclic) بيحتوي على مسار يبدأ وينتهي عند نفس العقدة.</p>`,
+          en: `<p>Important concepts for the exam:</p>
+<p>• <strong>Degree:</strong> The number of edges connected to a vertex.</p>
+<p>• <strong>In-degree:</strong> The number of edges coming into a vertex (in Directed Graphs).</p>
+<p>• <strong>Out-degree:</strong> The number of edges going out of a vertex.</p>
+<p>• <strong>Adjacent Vertices:</strong> Vertices directly connected by an edge.</p>
+<p>• <strong>Isolated Vertex:</strong> A vertex with a degree of zero.</p>
+<p>• <strong>Loop:</strong> An edge that connects a vertex to itself.</p>
+<p>• <strong>Cyclic vs Acyclic:</strong> A cyclic graph contains at least one cycle (path starting and ending at the same node).</p>`
+        }
+      },
+      {
+        icon: '📊',
+        title: { ar: '3. تمثيل الرسم البياني (Graph Representation)', en: '3. Graph Representation' },
+        content: {
+          ar: `<p>في طريقتين رئيسيتين لتمثيل الرسم البياني في الكمبيوتر:</p>
+<p><strong>1. Adjacency Matrix (مصفوفة التجاور):</strong></p>
+<p>• بنمثل الرسم بمصفوفة مربعة حجمها <strong>n x n</strong> (حيث n هو عدد العقد).</p>
+<p>• لو في ضلع بين عقدة i وعقدة j بنحط <code>adj[i][j] = 1</code>، ولو مفيش بنحط <code>0</code>.</p>
+<p><strong>2. Adjacency List (قائمة التجاور):</strong></p>
+<p>• مصفوفة من الـ Linked Lists، كل عنصر فيها بيشيل قائمة بالعقد المتصلة بيه.</p>`,
+          en: `<p>There are two primary ways to represent a graph in computer memory:</p>
+<p><strong>1. Adjacency Matrix:</strong></p>
+<p>• Representing the graph as an <strong>n x n</strong> square matrix (where n is the number of vertices).</p>
+<p>• If there is an edge from vertex i to j, we set <code>adj[i][j] = 1</code>, otherwise <code>0</code>.</p>
+<p><strong>2. Adjacency List:</strong></p>
+<p>• An array of Linked Lists, where each entry represents a vertex and its linked list contains all adjacent vertices.</p>`
+        },
+        code: `// تعريف مصفوفة التجاور لرسم بياني يحتوي على 5 عقد
+int adj[5][5] = {0};
+
+// إضافة ضلع (Edge) بين العقدة 0 والعقدة 1 (غير موجه)
+adj[0][1] = 1;
+adj[1][0] = 1;
+
+// إضافة ضلع بين العقدة 2 والعقدة 3 (موجه من 2 إلى 3)
+adj[2][3] = 1;`,
+        codeTitle: 'Graph Adjacency Matrix in C++'
+      }
+    ]
   }
 };

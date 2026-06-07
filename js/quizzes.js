@@ -1204,5 +1204,107 @@ const QUIZZES = {
       correct: 1,
       explanation: { ar: 'Subtree = Node + كل الأحفاد', en: 'Subtree = Node + all descendants' }
     }
+  ],
+  10: [
+    {
+      question: { ar: 'ما هو الرسم البياني (Graph)؟', en: 'What is a Graph?' },
+      options: [
+        { ar: 'هيكل بيانات خطي كالمصفوفات', en: 'A linear data structure like arrays' },
+        { ar: 'هيكل بيانات غير خطي يتكون من Vertices و Edges', en: 'A non-linear data structure consisting of Vertices and Edges' },
+        { ar: 'نوع من أنواع قواعد البيانات الهرمية', en: 'A type of hierarchical database' },
+        { ar: 'دالة رياضية لحساب الوقت', en: 'A mathematical function to calculate time' }
+      ],
+      correct: 1,
+      explanation: { ar: 'الرسم البياني هيكل غير خطي يتكون من عُقد (Vertices) وروابط بينها (Edges).', en: 'A graph is a non-linear data structure consisting of nodes (Vertices) and links (Edges).' }
+    },
+    {
+      question: { ar: 'هل الأشجار (Trees) تعتبر حالة خاصة من الرسوم البيانية (Graphs)؟', en: 'Are trees considered special cases of graphs?' },
+      options: [
+        { ar: 'نعم، الأشجار هي رسوم بيانية متصلة وخالية من الدورات (Acyclic)', en: 'Yes, trees are connected acyclic graphs' },
+        { ar: 'لا، ليس بينهما أي علاقة على الإطلاق', en: 'No, there is no relationship between them' },
+        { ar: 'نعم، ولكن فقط إذا كانت مصفوفة التجاور فارغة', en: 'Yes, but only if the adjacency matrix is empty' },
+        { ar: 'لا، الرسوم البيانية هي حالة خاصة من الأشجار', en: 'No, graphs are special cases of trees' }
+      ],
+      correct: 0,
+      explanation: { ar: 'الشجرة هي في الأساس Graph متصل ولا يحتوي على أي دورات (Acyclic).', en: 'A tree is basically a connected graph that contains no cycles (Acyclic).' }
+    },
+    {
+      question: { ar: 'أي مما يلي يعتبر مثالاً شهيراً على الرسم البياني غير الموجه (Undirected Graph)؟', en: 'Which of the following is a famous example of an Undirected Graph?' },
+      options: [
+        { ar: 'شبكة الصداقة في فيسبوك (Facebook friendships)', en: 'Facebook friendship network' },
+        { ar: 'الروابط التشعبية بين مواقع الويب', en: 'Hyperlinks between websites' },
+        { ar: 'شجرة الملفات في نظام التشغيل ويندوز', en: 'File tree in Windows OS' },
+        { ar: 'طابور الطباعة في الشبكة المحلية', en: 'Print queue in a local network' }
+      ],
+      correct: 0,
+      explanation: { ar: 'الصداقة في فيسبوك متبادلة (إذا كان A صديق B، فإن B صديق A)، مما يجعلها Undirected Graph.', en: 'Friendship on Facebook is mutual (if A is friends with B, B is friends with A), making it an undirected graph.' }
+    },
+    {
+      question: { ar: 'ماذا يعني مصطلح الـ Degree لعقدة في رسم بياني غير موجه؟', en: 'What does the term Degree of a vertex mean in an undirected graph?' },
+      options: [
+        { ar: 'رقم المستوى الذي تقع فيه العقدة', en: 'The level number of the vertex' },
+        { ar: 'عدد الأضلاع (Edges) المتصلة بتلك العقدة مباشرة', en: 'The number of edges directly incident to that vertex' },
+        { ar: 'عدد العقد الكلي في الرسم البياني', en: 'The total number of vertices in the graph' },
+        { ar: 'طول أقصر مسار يمر بالعقدة', en: 'The length of the shortest path passing through the vertex' }
+      ],
+      correct: 1,
+      explanation: { ar: 'الدرجة (Degree) هي عدد الروابط أو الأضلاع التي تتصل مباشرة بالعقدة.', en: 'Degree is the number of relations/edges a node makes with other nodes.' }
+    },
+    {
+      question: { ar: 'في الرسم الموجه (Directed Graph)، ما هو الـ In-degree للعقدة؟', en: 'In a Directed Graph, what is the In-degree of a vertex?' },
+      options: [
+        { ar: 'عدد الأضلاع الخارجة من العقدة', en: 'The number of edges going out of the vertex' },
+        { ar: 'عدد الأضلاع الداخلة والمتجهة نحو العقدة', en: 'The number of edges coming into the vertex' },
+        { ar: 'مجموع الأضلاع الداخلة والخارجة معاً', en: 'The sum of incoming and outgoing edges' },
+        { ar: 'العلاقة بين العقدة والـ Root node', en: 'The relationship between the vertex and Root node' }
+      ],
+      correct: 1,
+      explanation: { ar: 'الـ In-degree هو عدد الأسهم أو الأضلاع المتجهة نحو العقدة.', en: 'In-degree is the number of edges pointing to/coming to the vertex.' }
+    },
+    {
+      question: { ar: 'العقدة المعزولة (Isolated Vertex) هي العقدة التي تكون درجتها (Degree) مساوية لـ؟', en: 'An Isolated Vertex is a vertex whose degree is equal to?' },
+      options: ['1', '0', '-1', 'MAX_SIZE'],
+      correct: 1,
+      explanation: { ar: 'العقدة المعزولة هي العقدة التي لا تتصل بأي ضلع في الرسم (درجتها صفر).', en: 'An isolated vertex is a vertex with a degree of zero (no connections).' }
+    },
+    {
+      question: { ar: 'ما هو الـ Loop في الرسم البياني؟', en: 'What is a Loop in a graph?' },
+      options: [
+        { ar: 'تكرار كود البحث في الرسم', en: 'Repeating the search code in the graph' },
+        { ar: 'ضلع يربط العقدة بنفسها (Edge from vertex to itself)', en: 'An edge that connects a vertex to itself' },
+        { ar: 'مسار دائري يمر بكل العقد', en: 'A circular path passing through all vertices' },
+        { ar: 'تمثيل الرسم كقائمة متصلة', en: 'Representing a graph as a linked list' }
+      ],
+      correct: 1,
+      explanation: { ar: 'العروة أو الـ Loop هي ضلع يبدأ وينتهي عند نفس العقدة.', en: 'In graph theory, a loop is an edge that connects a vertex to itself.' }
+    },
+    {
+      question: { ar: 'إذا كان الرسم البياني يحتوي على n من العقد، فما هو حجم مصفوفة التجاور (Adjacency Matrix)؟', en: 'If a graph has n vertices, what is the size of its Adjacency Matrix?' },
+      options: ['1 x n', 'n x n', 'n x (n-1)', 'n x 2'],
+      correct: 1,
+      explanation: { ar: 'مصفوفة التجاور هي مصفوفة مربعة حجمها n x n.', en: 'An adjacency matrix is represented as an n x n square matrix.' }
+    },
+    {
+      question: { ar: 'في مصفوفة التجاور adj[n][n]، ماذا يعني أن تكون قيمة adj[i][j] == 1؟', en: 'In the adjacency matrix adj[n][n], what does adj[i][j] == 1 represent?' },
+      options: [
+        { ar: 'لا يوجد مسار أو ضلع بين العقدتين i و j', en: 'There is no edge or path between vertices i and j' },
+        { ar: 'يوجد ضلع مباشر (Edge) يربط بين العقدتين i و j', en: 'There is a direct edge connecting vertex i to j' },
+        { ar: 'العقدة i معزولة تماماً في الذاكرة', en: 'Vertex i is completely isolated in memory' },
+        { ar: 'الرسم البياني بأكمله متصل ودائري', en: 'The entire graph is connected and cyclic' }
+      ],
+      correct: 1,
+      explanation: { ar: 'القيمة 1 تعني وجود ضلع مباشر بين العقدتين، والقيمة 0 تعني عدم وجود ضلع.', en: '1 marks the existence of an edge between vertices, while 0 marks its absence.' }
+    },
+    {
+      question: { ar: 'ماذا يعني أن يحتوي الرسم البياني على دورة (Cyclic Graph)؟', en: 'What does it mean for a graph to be cyclic?' },
+      options: [
+        { ar: 'أن تكون جميع العقد متصلة ببعضها بنفس الترتيب', en: 'All vertices are connected in the exact same order' },
+        { ar: 'أن يحتوي الرسم على مسار مغلق واحد على الأقل يبدأ وينتهي عند نفس العقدة', en: 'The graph contains at least one path starting and ending at the same node' },
+        { ar: 'أن يتم تمثيل الرسم البياني بمصفوفة ثنائية الأبعاد فقط', en: 'The graph is represented using only a 2D matrix' },
+        { ar: 'أن تكون جميع العقد معزولة (Isolated)', en: 'All vertices are isolated from each other' }
+      ],
+      correct: 1,
+      explanation: { ar: 'الرسم البياني الدائري يحتوي على دورة (Cycle)، وهي مسار مغلق يرجع لنفس نقطة البداية.', en: 'A cyclic graph contains at least one cycle (path that loops back to the start node).' }
+    }
   ]
 };
