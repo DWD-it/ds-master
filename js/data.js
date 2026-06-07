@@ -435,51 +435,10 @@ cout &lt;&lt; z;      <span class="hl-comment">// 1 unit of time</span>
 <p>Popping from an empty Stack = <span class="term-important">Stack Underflow</span></p>`
         }
       },
-      {
-        icon: '💻',
-        title: { ar: '3. تنفيذ الـ Stack باستخدام Array', en: '3. Stack Implementation using Array' },
-        content: {
-          ar: `<p>بنستخدم Array ومتغير <span class="term-en">top</span> يبدأ من <code>-1</code> (معناها الـ Stack فاضي).</p>`,
-          en: `<p>We use an Array and a variable <span class="term-en">top</span> starting at <code>-1</code> (meaning the Stack is empty).</p>`
-        },
-        code: `<span class="hl-keyword">#define</span> MAX_SIZE <span class="hl-number">100</span>
-
-<span class="hl-keyword">class</span> <span class="hl-class">Stack</span> {
-<span class="hl-keyword">private</span>:
-    <span class="hl-type">int</span> arr[MAX_SIZE];
-    <span class="hl-type">int</span> top;
-<span class="hl-keyword">public</span>:
-    Stack() { top = <span class="hl-number">-1</span>; }
-
-    <span class="hl-type">void</span> <span class="hl-function">push</span>(<span class="hl-type">int</span> x) {
-        <span class="hl-keyword">if</span> (top == MAX_SIZE - <span class="hl-number">1</span>) {
-            cout &lt;&lt; <span class="hl-string">"Stack Overflow!"</span>;
-            <span class="hl-keyword">return</span>;
-        }
-        arr[++top] = x;
-    }
-
-    <span class="hl-type">int</span> <span class="hl-function">pop</span>() {
-        <span class="hl-keyword">if</span> (top == <span class="hl-number">-1</span>) {
-            cout &lt;&lt; <span class="hl-string">"Stack Underflow!"</span>;
-            <span class="hl-keyword">return</span> <span class="hl-number">-1</span>;
-        }
-        <span class="hl-keyword">return</span> arr[top--];
-    }
-
-    <span class="hl-type">int</span> <span class="hl-function">peek</span>() {
-        <span class="hl-keyword">if</span> (top == <span class="hl-number">-1</span>) <span class="hl-keyword">return</span> <span class="hl-number">-1</span>;
-        <span class="hl-keyword">return</span> arr[top];
-    }
-
-    <span class="hl-type">bool</span> <span class="hl-function">isEmpty</span>() { <span class="hl-keyword">return</span> top == <span class="hl-number">-1</span>; }
-    <span class="hl-type">bool</span> <span class="hl-function">isFull</span>()  { <span class="hl-keyword">return</span> top == MAX_SIZE - <span class="hl-number">1</span>; }
-};`,
-        codeTitle: 'Stack Class - Array Implementation'
-      },
+      
       {
         icon: '⏱️',
-        title: { ar: '4. Time Complexity للـ Stack', en: '4. Stack Time Complexity' },
+        title: { ar: '3. Time Complexity للـ Stack', en: '3. Stack Time Complexity' },
         content: {
           ar: `<p>كل عمليات الـ Stack بتاخد <span class="term-important">O(1)</span> - وقت ثابت:</p>
 <p>• Push: <span class="term-important">O(1)</span></p>
