@@ -95,10 +95,15 @@ const QUIZZES = {
       explanation: { ar: 'Algorithm = خطوات متسلسلة لحل مشكلة معينة', en: 'Algorithm = step by step procedure to solve a particular function' }
     },
     {
-      question: { ar: 'في الـ Linear DS، كل عنصر ليه كام Predecessor؟', en: 'In Linear DS, each element has how many predecessors?' },
-      options: ['0', '1', '2', { ar: 'حسب الموقع', en: 'Depends on position' }],
-      correct: 1,
-      explanation: { ar: 'كل عنصر ليه predecessor واحد بس (ماعدا الأول)', en: 'Each element has exactly one predecessor (except the first)' }
+      question: { ar: 'ما المقصود بعملية الـ Traversing؟', en: 'What is meant by Traversing operation?' },
+      options: [
+        { ar: 'حذف عناصر عشوائية', en: 'Deleting random elements' },
+        { ar: 'إضافة عنصر جديد', en: 'Adding a new element' },
+        { ar: 'زيارة كل عنصر في الهيكل مرة واحدة', en: 'Visiting each element in the structure exactly once' },
+        { ar: 'ترتيب العناصر تنازلياً', en: 'Sorting elements descending' }
+      ],
+      correct: 2,
+      explanation: { ar: 'Traversing يعني المرور على كل العناصر لتنفيذ عملية معينة (مثل الطباعة)', en: 'Traversing means visiting all elements to perform a specific operation (like printing)' }
     },
     {
       question: { ar: 'أي من العمليات دي مش من العمليات الأساسية على الـ DS؟', en: 'Which is NOT a basic operation on DS?' },
@@ -218,16 +223,21 @@ const QUIZZES = {
       explanation: { ar: 'معادلة رياضية = عملية ثابتة = O(1)', en: 'Mathematical formula = constant operation = O(1)' }
     },
     {
-      question: { ar: 'لوب for(i=n/2; i<n; i++) الـ TC بتاعها؟', en: 'Loop for(i=n/2; i<n; i++) has TC of?' },
-      options: ['O(n/2)', 'O(n)', 'O(log n)', 'O(1)'],
+      question: { ar: 'ما هو الـ Time Complexity للوصول لعنصر في مصفوفة (Array) بالـ Index؟', en: 'What is the Time Complexity to access an element in an Array by Index?' },
+      options: ['O(n)', 'O(1)', 'O(log n)', 'O(n²)'],
       correct: 1,
-      explanation: { ar: 'n/2 بنهمل الـ constant (1/2) = O(n)', en: 'n/2, drop the constant (1/2) = O(n)' }
+      explanation: { ar: 'الوصول لعنصر عبر الفهرس (Index) يتم في وقت ثابت O(1)', en: 'Accessing an element by index takes constant time O(1)' }
     },
     {
-      question: { ar: 'لوب for(i=1; i<n; i=i*3) الـ TC؟', en: 'Loop for(i=1; i<n; i=i*3) TC is?' },
-      options: ['O(n)', 'O(log₃ n)', 'O(3n)', 'O(n³)'],
+      question: { ar: 'ما المقصود بـ O(1) Time Complexity؟', en: 'What does O(1) Time Complexity mean?' },
+      options: [
+        { ar: 'الكود يعمل مرة واحدة فقط', en: 'The code runs exactly once' },
+        { ar: 'الوقت المستغرق ثابت لا يعتمد على حجم البيانات', en: 'Execution time is constant and independent of input size' },
+        { ar: 'الكود سريع جداً ولكنه يعتمد على n', en: 'The code is very fast but depends on n' },
+        { ar: 'الكود به خطأ ويحتاج تصحيح', en: 'The code has an error and needs fixing' }
+      ],
       correct: 1,
-      explanation: { ar: 'بنضرب في 3 = O(log₃ n)', en: 'Multiplying by 3 = O(log₃ n)' }
+      explanation: { ar: 'O(1) تعني أن الوقت ثابت مهما زاد حجم المدخلات', en: 'O(1) means constant time regardless of input size' }
     },
     {
       question: { ar: 'لوب خارجية O(n) وداخلية O(log n)، النتيجة؟', en: 'Outer loop O(n) and inner O(log n), result?' },

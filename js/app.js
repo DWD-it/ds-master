@@ -165,8 +165,8 @@ function toggleParticlesSetting() {
   if (DSMaster.particlesEnabled) {
     if (typeof initParticles === 'function') initParticles();
   } else {
-    // Canvas clearing and stopping will be handled in the animate loop
-    const canvas = document.getElementById('particles-bg');
+    if (window._particleFrame) cancelAnimationFrame(window._particleFrame);
+    const canvas = document.getElementById('particles-canvas');
     if (canvas) {
       const ctx = canvas.getContext('2d');
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1092,12 +1092,11 @@ function initParticles() {
       }
     }
 
-    animFrame = requestAnimationFrame(animate);
+    window._particleFrame = requestAnimationFrame(animate);
   }
 
   // Cancel previous animation if re-initialized
   if (window._particleFrame) cancelAnimationFrame(window._particleFrame);
-  window._particleFrame = animFrame;
   animate();
 
   window.addEventListener('resize', () => {
