@@ -9,6 +9,7 @@ const DSMaster = {
   currentView: 'home', // 'home', 'lecture', 'quiz', 'exam'
   lang: localStorage.getItem('ds-lang') || 'ar',
   theme: localStorage.getItem('ds-theme') || 'dark',
+  accent: localStorage.getItem('ds-accent') || 'purple',
   sidebarOpen: window.innerWidth > 768, // starts open on desktop, closed on mobile
   quizState: null,
 };
@@ -98,34 +99,57 @@ function t(key) {
 // ── Theme System ──
 function initTheme() {
   document.documentElement.setAttribute('data-theme', DSMaster.theme);
-  updateThemeIcon();
+  document.documentElement.setAttribute('data-accent', DSMaster.accent);
+  
+  // Update active states in UI
+  document.querySelectorAll('.theme-mode-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === DSMaster.theme);
+  });
+  document.querySelectorAll('.theme-accent-dot').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.accent === DSMaster.accent);
+  });
 }
 
-function toggleTheme() {
-  if (DSMaster.theme === 'dark') {
-    DSMaster.theme = 'light';
-  } else if (DSMaster.theme === 'light') {
-    DSMaster.theme = 'black';
-  } else {
-    DSMaster.theme = 'dark';
+function toggleThemeMenu(event) {
+  event.stopPropagation();
+  const dropdown = document.getElementById('theme-menu-dropdown');
+  if (dropdown) {
+    dropdown.classList.toggle('active');
   }
-  document.documentElement.setAttribute('data-theme', DSMaster.theme);
-  localStorage.setItem('ds-theme', DSMaster.theme);
-  updateThemeIcon();
-  initParticles(); // re-init with new colors
 }
 
-function updateThemeIcon() {
-  const thumb = document.querySelector('.theme-toggle-thumb');
-  if (thumb) {
-    if (DSMaster.theme === 'dark') {
-      thumb.textContent = '🌙';
-    } else if (DSMaster.theme === 'light') {
-      thumb.textContent = '☀️';
-    } else if (DSMaster.theme === 'black') {
-      thumb.textContent = '🌑';
+document.addEventListener('click', (event) => {
+  const dropdown = document.getElementById('theme-menu-dropdown');
+  const btn = document.querySelector('.theme-menu-btn');
+  if (dropdown && dropdown.classList.contains('active')) {
+    if (!dropdown.contains(event.target) && (!btn || !btn.contains(event.target))) {
+      dropdown.classList.remove('active');
     }
   }
+});
+
+function selectThemeMode(mode) {
+  DSMaster.theme = mode;
+  document.documentElement.setAttribute('data-theme', mode);
+  localStorage.setItem('ds-theme', mode);
+  
+  document.querySelectorAll('.theme-mode-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+  
+  if (typeof initParticles === 'function') initParticles();
+}
+
+function selectThemeAccent(accent) {
+  DSMaster.accent = accent;
+  document.documentElement.setAttribute('data-accent', accent);
+  localStorage.setItem('ds-accent', accent);
+  
+  document.querySelectorAll('.theme-accent-dot').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.accent === accent);
+  });
+  
+  if (typeof initParticles === 'function') initParticles();
 }
 
 // ── Language System ──
@@ -149,6 +173,16 @@ function setLanguage(lang) {
   document.querySelectorAll('.lang-option').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
+
+  // Translate theme labels
+  document.querySelectorAll('.mode-label').forEach(label => {
+    label.textContent = label.getAttribute(`data-${lang}`) || label.textContent;
+  });
+  
+  const themeDropdownTitle = document.querySelector('.theme-dropdown-title');
+  if (themeDropdownTitle) {
+    themeDropdownTitle.textContent = lang === 'ar' ? 'المظهر' : 'Appearance';
+  }
 
   // Re-render current view
   renderCurrentView();
@@ -970,13 +1004,16 @@ function initParticles() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
+  const rootStyle = getComputedStyle(document.documentElement);
+  const rgbRaw = rootStyle.getPropertyValue('--color-primary-rgb').trim() || '124, 108, 240';
+
   const isDark = DSMaster.theme === 'dark' || DSMaster.theme === 'black';
   const particleColor = DSMaster.theme === 'black'
     ? 'rgba(255, 255, 255, 0.18)'
-    : (isDark ? 'rgba(124, 108, 240, 0.3)' : 'rgba(95, 61, 196, 0.15)');
+    : (isDark ? `rgba(${rgbRaw}, 0.3)` : `rgba(${rgbRaw}, 0.15)`);
   const lineColor = DSMaster.theme === 'black'
     ? 'rgba(255, 255, 255, 0.05)'
-    : (isDark ? 'rgba(124, 108, 240, 0.08)' : 'rgba(95, 61, 196, 0.05)');
+    : (isDark ? `rgba(${rgbRaw}, 0.08)` : `rgba(${rgbRaw}, 0.05)`);
 
   const particles = [];
   const count = Math.min(60, Math.floor(window.innerWidth / 25));

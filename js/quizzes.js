@@ -240,74 +240,6 @@ const QUIZZES = {
       options: ['O(n log n)', 'O(n²)', 'O(2ⁿ)', 'O(n³)'],
       correct: 2,
       explanation: { ar: 'O(2ⁿ) Exponential هو الأسوأ', en: 'O(2ⁿ) Exponential is the worst' }
-    },
-    {
-      question: { ar: 'ما هو TC الكود: for(i=0;i<n;i++){for(j=1;j<n;j=j*2){}}', en: 'TC of: for(i=0;i<n;i++){for(j=1;j<n;j=j*2){}}?' },
-      options: ['O(n²)', 'O(n log n)', 'O(n)', 'O(log n)'],
-      correct: 1,
-      explanation: { ar: 'خارجي O(n) × داخلي O(log n) = O(n log n)', en: 'Outer O(n) × Inner O(log n) = O(n log n)' }
-    },
-    {
-      question: { ar: 'لوب for(i=n; i>0; i=i/2)، كام مرة هتلف لو n=16؟', en: 'Loop for(i=n; i>0; i=i/2), how many times for n=16?' },
-      options: ['16', '8', '4', '5'],
-      correct: 3,
-      explanation: { ar: 'i: 16→8→4→2→1 = 5 مرات = log₂(16) + 1', en: 'i: 16→8→4→2→1 = 5 times = log₂(16) + 1' }
-    },
-    {
-      question: { ar: 'O(n(log n)²) ده ناتج إيه؟', en: 'O(n(log n)²) results from what?' },
-      options: [
-        { ar: 'لوبين عاديين', en: 'Two simple loops' },
-        { ar: 'لوب عادية ولوبين لوغاريتمية', en: 'One simple loop and two logarithmic loops' },
-        { ar: 'ثلاث لوبات عادية', en: 'Three simple loops' },
-        { ar: 'لوب واحدة', en: 'One loop' }
-      ],
-      correct: 1,
-      explanation: { ar: 'n × log n × log n = n(log n)²', en: 'n × log n × log n = n(log n)²' }
-    },
-    {
-      question: { ar: 'لو عندك لوبين مش جوا بعض (متتالية)، بنعمل إيه؟', en: 'Two loops NOT nested (sequential), what do we do?' },
-      options: [
-        { ar: 'نضربهم', en: 'Multiply them' },
-        { ar: 'نجمعهم وناخد الأكبر', en: 'Add them and take the bigger one' },
-        { ar: 'نقسمهم', en: 'Divide them' },
-        { ar: 'مش بنحسبهم', en: 'We don\'t calculate them' }
-      ],
-      correct: 1,
-      explanation: { ar: 'لوبات متتالية بنجمعهم وناخد الأكبر: O(n) + O(n²) = O(n²)', en: 'Sequential loops: add and take bigger: O(n) + O(n²) = O(n²)' }
-    },
-    {
-      question: { ar: 'ليه بنهمل الثوابت في Big O؟', en: 'Why do we ignore constants in Big O?' },
-      options: [
-        { ar: 'لأنها صعبة', en: 'Because they\'re hard' },
-        { ar: 'لأن تأثيرها بيختفي لما n تكبر', en: 'Because their effect vanishes as n grows large' },
-        { ar: 'لأنها غلط', en: 'Because they\'re wrong' },
-        { ar: 'مفيش سبب', en: 'No reason' }
-      ],
-      correct: 1,
-      explanation: { ar: 'لما n بتكون مليون، الثوابت مالهاش قيمة', en: 'When n is a million, constants become insignificant' }
-    },
-    {
-      question: { ar: 'O(1) يعني إيه بالعربي؟', en: 'What does O(1) mean?' },
-      options: [
-        { ar: 'الكود بيلف مرة واحدة', en: 'Code runs once' },
-        { ar: 'الوقت ثابت بغض النظر عن حجم البيانات', en: 'Time is constant regardless of data size' },
-        { ar: 'الكود سريع', en: 'Code is fast' },
-        { ar: 'الكود بدون لوبات', en: 'Code has no loops' }
-      ],
-      correct: 1,
-      explanation: { ar: 'O(1) = وقت ثابت مهما كان حجم البيانات', en: 'O(1) = constant time regardless of input size' }
-    },
-    {
-      question: { ar: 'أفضل Time Complexity للبحث؟', en: 'Best Time Complexity for searching?' },
-      options: ['O(n)', 'O(n²)', 'O(1)', 'O(log n)'],
-      correct: 2,
-      explanation: { ar: 'O(1) أسرع TC ممكن - Direct Access', en: 'O(1) is the fastest possible TC - Direct Access' }
-    },
-    {
-      question: { ar: 'لوب for(i=1; i*i<=n; i++)، الـ TC بتاعها؟', en: 'Loop for(i=1; i*i<=n; i++) has TC of?' },
-      options: ['O(n)', 'O(n²)', 'O(√n)', 'O(log n)'],
-      correct: 2,
-      explanation: { ar: 'اللوب بتوقف لما i² = n، يعني i = √n', en: 'Loop stops when i² = n, so i = √n' }
     }
   ],
 
@@ -315,6 +247,41 @@ const QUIZZES = {
   // LECTURE 3: Stack
   // ──────────────────────────────────────────────────────────────
   3: [
+    {
+      question: { ar: 'ما هو ناتج التعبير: 5 1 2 + 4 * + 3 - (Postfix)؟', en: 'What is the result of the postfix expression: 5 1 2 + 4 * + 3 - ?' },
+      options: ['14', '15', '16', '17'],
+      correct: 0,
+      explanation: { ar: '5 1 2 + 4 * + 3 - = 14', en: 'Result is 14' }
+    },
+    {
+      question: { ar: 'ما هو هيكل البيانات المستخدم لتقييم الـ Postfix؟', en: 'Which data structure is mainly used to evaluate postfix expressions?' },
+      options: ['Queue', 'Linked List', 'Stack', 'Tree'],
+      correct: 2,
+      explanation: { ar: 'الـ Stack هو المستخدم للـ Postfix', en: 'Stack is used for postfix evaluation' }
+    },
+    {
+      question: { ar: 'الـ Postfix للتعبير (A + B * C) هو؟', en: 'The postfix form of the infix expression A + B * C is:' },
+      options: ['AB+C*', 'ABC*+', 'AB*+C', 'A+BC*'],
+      correct: 1,
+      explanation: { ar: 'A + (B*C) -> ABC*+', en: 'ABC*+' }
+    },
+    {
+      question: { ar: 'أي من التطبيقات التالية نستخدم فيها الـ Stack؟', en: 'In which of the following applications are stacks used?' },
+      options: ['Expression evaluation', 'Undo/Redo functionality', 'Function calls in programming', 'All of the above'],
+      correct: 3,
+      explanation: { ar: 'كل الإجابات صحيحة (All of the above)', en: 'All of the above' }
+    },
+    {
+      question: { ar: 'في تقييم الـ Postfix، عندما نجد علامة (Operator) نعمل إيه؟', en: 'In postfix evaluation, when an operator is found:' },
+      options: [
+        'Push it into stack',
+        'Pop two operands, apply operator, push result',
+        'Ignore it',
+        'Pop one operand only'
+      ],
+      correct: 1,
+      explanation: { ar: 'Pop two operands, apply operator, push result', en: 'Pop two operands, apply operator, push result' }
+    },
     {
       question: { ar: 'الـ Stack بيتبع مبدأ؟', en: 'Stack follows which principle?' },
       options: ['FIFO', 'LIFO', 'Sequential Access', 'Random Access'],

@@ -102,9 +102,43 @@
                         <button class="lang-option" data-lang="en" onclick="setLanguage('en')">EN</button>
                     </div>
 
-                    <!-- Theme Toggle -->
-                    <div class="theme-toggle" onclick="toggleTheme()" role="button" aria-label="Toggle Theme">
-                        <div class="theme-toggle-thumb">🌙</div>
+                    <!-- Theme Menu -->
+                    <div class="theme-menu-container">
+                        <button class="theme-menu-btn" onclick="toggleThemeMenu(event)" aria-label="Theme Menu">
+                            <span class="theme-menu-icon">🎨</span>
+                        </button>
+                        <div class="theme-menu-dropdown" id="theme-menu-dropdown">
+                            <div class="theme-dropdown-header">
+                                <span class="theme-dropdown-title">المظهر / Appearance</span>
+                                <span class="theme-dropdown-icon">🎨</span>
+                            </div>
+                            
+                            <!-- Modes -->
+                            <div class="theme-modes-row">
+                                <button class="theme-mode-btn" data-mode="light" onclick="selectThemeMode('light')">
+                                    <span class="mode-icon">☀️</span>
+                                    <span class="mode-label" data-ar="فاتح" data-en="Light">فاتح</span>
+                                </button>
+                                <button class="theme-mode-btn" data-mode="dark" onclick="selectThemeMode('dark')">
+                                    <span class="mode-icon">🌙</span>
+                                    <span class="mode-label" data-ar="داكن" data-en="Dark">داكن</span>
+                                </button>
+                                <button class="theme-mode-btn" data-mode="black" onclick="selectThemeMode('black')">
+                                    <span class="mode-icon">🌑</span>
+                                    <span class="mode-label" data-ar="أسود" data-en="Black">أسود</span>
+                                </button>
+                            </div>
+                            
+                            <!-- Accents -->
+                            <div class="theme-accents-grid">
+                                <button class="theme-accent-dot" data-accent="purple" style="background-color: #7c6cf0;" onclick="selectThemeAccent('purple')" title="Indigo"></button>
+                                <button class="theme-accent-dot" data-accent="teal" style="background-color: #00d2d3;" onclick="selectThemeAccent('teal')" title="Teal"></button>
+                                <button class="theme-accent-dot" data-accent="blue" style="background-color: #3b82f6;" onclick="selectThemeAccent('blue')" title="Blue"></button>
+                                <button class="theme-accent-dot" data-accent="green" style="background-color: #10b981;" onclick="selectThemeAccent('green')" title="Green"></button>
+                                <button class="theme-accent-dot" data-accent="orange" style="background-color: #f97316;" onclick="selectThemeAccent('orange')" title="Orange"></button>
+                                <button class="theme-accent-dot" data-accent="pink" style="background-color: #ec4899;" onclick="selectThemeAccent('pink')" title="Pink"></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>
