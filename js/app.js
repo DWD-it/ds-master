@@ -10,6 +10,7 @@ const DSMaster = {
   lang: localStorage.getItem('ds-lang') || 'ar',
   theme: localStorage.getItem('ds-theme') || 'dark',
   accent: localStorage.getItem('ds-accent') || 'purple',
+  particlesEnabled: localStorage.getItem('ds-particles') !== 'false',
   sidebarOpen: window.innerWidth > 768, // starts open on desktop, closed on mobile
   quizState: null,
 };
@@ -152,6 +153,27 @@ function selectThemeAccent(accent) {
   if (typeof initParticles === 'function') initParticles();
 }
 
+function toggleParticlesSetting() {
+  DSMaster.particlesEnabled = !DSMaster.particlesEnabled;
+  localStorage.setItem('ds-particles', DSMaster.particlesEnabled);
+  
+  const toggleInput = document.getElementById('particles-toggle');
+  if (toggleInput) {
+    toggleInput.checked = DSMaster.particlesEnabled;
+  }
+  
+  if (DSMaster.particlesEnabled) {
+    if (typeof initParticles === 'function') initParticles();
+  } else {
+    // Canvas clearing and stopping will be handled in the animate loop
+    const canvas = document.getElementById('particles-bg');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+}
+
 // ── Language System ──
 function initLang() {
   setLanguage(DSMaster.lang);
@@ -175,7 +197,7 @@ function setLanguage(lang) {
   });
 
   // Translate theme labels
-  document.querySelectorAll('.mode-label').forEach(label => {
+  document.querySelectorAll('.mode-label, .animation-label').forEach(label => {
     label.textContent = label.getAttribute(`data-${lang}`) || label.textContent;
   });
   
@@ -1016,6 +1038,13 @@ function initParticles() {
     : (isDark ? `rgba(${rgbRaw}, 0.08)` : `rgba(${rgbRaw}, 0.05)`);
 
   const particles = [];
+  
+  if (window._particleFrame) cancelAnimationFrame(window._particleFrame);
+  if (!DSMaster.particlesEnabled) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    return;
+  }
+
   const count = Math.min(60, Math.floor(window.innerWidth / 25));
 
   for (let i = 0; i < count; i++) {
